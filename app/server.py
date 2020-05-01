@@ -60,7 +60,6 @@ async def setup_mask():
 # BLUE_IMAGE_PATH =  'masks/blue-mask.png'
 # RED_IMAGE_PATH = 'masks/red-mask.png'
 
-
 def rect_to_bbox(rect):
     x = rect[3]
     y = rect[0]
