@@ -195,7 +195,6 @@ async def analyze(request):
         cli(img,save_imgpath)
 
 
-    prediction = learn.predict(img)[0]
     return  FileResponse(path/'newmask.jpg')
 
 
