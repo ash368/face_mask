@@ -53,6 +53,7 @@ async def setup_mask():
     await download_file(export_file_url, path / export_file_name)
     try:
         BLACK_IMAGE_PATH = path/export_file_name
+        return BLACK_IMAGE_PATH
 
 # def rect_to_bbox(rect):
 #     x = rect[3]
