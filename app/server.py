@@ -54,12 +54,12 @@ async def setup_mask():
     try:
         BLACK_IMAGE_PATH = path/export_file_name
 
-def rect_to_bbox(rect):
-    x = rect[3]
-    y = rect[0]
-    w = rect[1] - x
-    h = rect[2] - y
-    return (x, y, w, h)
+# def rect_to_bbox(rect):
+#     x = rect[3]
+#     y = rect[0]
+#     w = rect[1] - x
+#     h = rect[2] - y
+#     return (x, y, w, h)
 
 def cli(pic_path ,save_pic_path ):
     parser = argparse.ArgumentParser(description='Wear a face mask in the given picture.')
