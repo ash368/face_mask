@@ -16,6 +16,8 @@ from starlette.responses import HTMLResponse, JSONResponse
 from starlette.staticfiles import StaticFiles
 from starlette.responses import FileResponse
 
+export_file_url  = 'https://github.com/ash368/face_mask/raw/master/masks/black-mask.png'
+export_file_name = 'black-mask.png'
 
 path = Path(__file__).parent
 
@@ -34,18 +36,16 @@ async def download_file(url, dest):
                 f.write(data)
 
 
-export_file_url  = 'https://github.com/ash368/face_mask/raw/master/masks/black-mask.png'
-export_file_name = 'black-mask.png'
+
 
 async def setup_mask():
     await download_file(export_file_url, path / export_file_name)
-    try:
-        BLACK_IMAGE_PATH = path/export_file_name
-        return BLACK_IMAGE_PATH
+    BLACK_IMAGE_PATH = path/export_file_name
+    return BLACK_IMAGE_PATH
     
 loop = asyncio.get_event_loop()
 tasks = [asyncio.ensure_future(setup_mask())]
-learn = loop.run_until_complete(asyncio.gather(*tasks))[0]
+BLACK_IMAGE_PATH = loop.run_until_complete(asyncio.gather(*tasks))[0]
 loop.close()
 
 @app.route('/')
