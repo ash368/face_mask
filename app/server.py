@@ -62,7 +62,7 @@ async def analyze(request):
     
     img_data = await request.form()
     img_bytes = await (img_data['file'].read())
-    img = open_image(BytesIO(img_bytes))
+    img = Image.open(BytesIO(img_bytes))
     
     
     def cli(pic_path ,save_pic_path ):
