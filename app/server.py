@@ -60,8 +60,16 @@ async def analyze(request):
 	img_bytes = await (img_data['file'].read())
 	img = Image.open(BytesIO(img_bytes))
 	# Provide the target width and height of the image
-	(width, height) = (img.width // 2, img.height // 2)
-	img= img.resize((width, height))
+	(width, height) = (img.width , img.height )
+	if width <=1000 and height <= 1200:
+		img = img
+	else:
+		img= img.resize((width//3, height//3))
+
+	if os.path.exists("app/newmask.png"):
+		os.remove("app/newmask.png")
+	else:
+		print("The file does not exist")
 	
 	def cli(pic_path ,save_pic_path ):
 		mask_path = BLACK_IMAGE_PATH
