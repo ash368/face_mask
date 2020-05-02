@@ -4,6 +4,8 @@ body {
 
 .no-display {
     display: none;
+    max-width: 100%;
+    height: auto;
 }
 
 .center {
