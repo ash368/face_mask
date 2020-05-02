@@ -17,7 +17,7 @@ from starlette.responses import FileResponse
 from starlette.middleware.cors import CORSMiddleware
 from starlette.responses import HTMLResponse, JSONResponse, StreamingResponse
 
-export_file_url  = 'https://github.com/ash368/face_mask/raw/master/masks/black-mask.png'
+export_file_url  = 'https://live.staticflickr.com/65535/49845513266_92f41da548_o_d.png'
 export_file_name = 'black-mask.png'
 
 path = Path(__file__).parent
