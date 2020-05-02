@@ -12,7 +12,7 @@ from pathlib import Path
 import typing
 import warnings
 from typing import Union
-
+import face_recognition
 
 
 from io import BytesIO
@@ -89,7 +89,7 @@ async def analyze(request):
 
 		def mask(self):
 		
-			import face_recognition
+			# import face_recognition
 
 			# face_image_np = face_recognition.load_image_file(self.face_path)
 			face_image_np = np.array(img)
