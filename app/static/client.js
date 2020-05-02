@@ -16,9 +16,9 @@ function showPicked(input) {
 
 function analyze() {
   var uploadFiles = el("file-input").files;
-  if (uploadFiles.length !== 1) alert("Please select a file to analyze!");
+  if (uploadFiles.length !== 1) alert("Please select an image to style!");
 
-  el("analyze-button").innerHTML = "Analyzing...";
+  el("analyze-button").innerHTML = "Drawing...";
   var xhr = new XMLHttpRequest();
   var loc = window.location;
   xhr.open("POST", `${loc.protocol}//${loc.hostname}:${loc.port}/analyze`,
@@ -26,16 +26,17 @@ function analyze() {
   xhr.onerror = function() {
     alert(xhr.responseText);
   };
+  xhr.responseType="blob"
+
   xhr.onload = function(e) {
     if (this.readyState === 4) {
-      var response = JSON.parse(e.target.responseText);
-      el("result-label").innerHTML = `Result = ${response["result"]}`;
+       const blobUrl = URL.createObjectURL(e.target.response);
+       el("image-picked").src = blobUrl;
     }
-    el("analyze-button").innerHTML = "Analyze";
+    el("analyze-button").innerHTML = "Draw";
   };
 
   var fileData = new FormData();
   fileData.append("file", uploadFiles[0]);
   xhr.send(fileData);
 }
-
