@@ -1,26 +1,21 @@
+import os
+import sys
+import cv2
+import math
+import typing
 import aiohttp
 import asyncio
 import uvicorn
-import os
-import sys
-import argparse
 import numpy as np
-import cv2
-import math
-from PIL import Image, ImageFile
-from pathlib import Path
-import typing
-import warnings
-from typing import Union
-import face_recognition
-
-
 from io import BytesIO
+import face_recognition
+from pathlib import Path
+from PIL import Image, ImageFile
 from starlette.applications import Starlette
-from starlette.middleware.cors import CORSMiddleware
-from starlette.responses import HTMLResponse, JSONResponse, StreamingResponse
 from starlette.staticfiles import StaticFiles
 from starlette.responses import FileResponse
+from starlette.middleware.cors import CORSMiddleware
+from starlette.responses import HTMLResponse, JSONResponse, StreamingResponse
 
 export_file_url  = 'https://github.com/ash368/face_mask/raw/master/masks/black-mask.png'
 export_file_name = 'black-mask.png'
@@ -42,8 +37,6 @@ async def download_file(url, dest):
 				f.write(data)
 
 
-
-
 async def setup_mask():
 	await download_file(export_file_url, path / export_file_name)
 	BLACK_IMAGE_PATH = path/export_file_name
@@ -60,18 +53,19 @@ async def homepage(request):
 	return HTMLResponse(html_file.open().read())
 
 
-
-
 @app.route('/analyze', methods=['POST'])
 async def analyze(request):
 	
 	img_data = await request.form()
 	img_bytes = await (img_data['file'].read())
 	img = Image.open(BytesIO(img_bytes))
-
-
-
-	# img = img.save('newer.jpg')
+	# Provide the target width and height of the image
+	(width, height) = (img.width // 2, img.height // 2)
+	img= img.resize((width, height))
+	
+	def cli(pic_path ,save_pic_path ):
+		mask_path = BLACK_IMAGE_PATH
+		FaceMasker(pic_path, mask_path, True, 'hog',save_pic_path).mask()
 	
 	
 	
@@ -88,10 +82,6 @@ async def analyze(request):
 			self._mask_img: ImageFile = None
 
 		def mask(self):
-		
-			# import face_recognition
-
-			# face_image_np = face_recognition.load_image_file(self.face_path)
 			face_image_np = np.array(img)
 			face_locations = face_recognition.face_locations(face_image_np, model=self.model)
 			face_landmarks = face_recognition.face_landmarks(face_image_np, face_locations)
@@ -112,11 +102,9 @@ async def analyze(request):
 				# mask face
 				found_face = True
 				self._mask_face(face_landmark)
-
-				if self.show:
-					self._face_img.show()
-				# save
-				self._save()
+				new_face_path = path/'newmask.png'
+				self._face_img.save(new_face_path)
+				# self._save()
 
 		def _mask_face(self, face_landmark: dict):
 			nose_bridge = face_landmark['nose_bridge']
@@ -170,15 +158,10 @@ async def analyze(request):
 			# add mask
 			self._face_img.paste(mask_img, (box_x, box_y), mask_img)
 
-		def _save(self):
-			# path_splits = os.path.splitext(self.face_path)
-			# new_face_path = path_splits[0] + '-with-mask' + path_splits[1]
-			
-			
-
-			new_face_path = path/'newmask.png'
-			self._face_img.save(new_face_path)
-			print(f'Save to {new_face_path}')
+		# def _save(self):
+		# 	new_face_path = path/'newmask.png'
+		# 	self._face_img.save(new_face_path)
+		# 	print(f'Save to {new_face_path}')
 
 		@staticmethod
 		def get_distance_from_point_to_line(point, line_point1, line_point2):
@@ -190,19 +173,14 @@ async def analyze(request):
 				(line_point1[0] - line_point2[0]) * (line_point1[0] - line_point2[0]))
 			return int(distance)
 
-	def cli(pic_path ,save_pic_path ):
-		mask_path = BLACK_IMAGE_PATH
-		FaceMasker(pic_path, mask_path, True, 'hog',save_pic_path).mask()
+
 
 
 
 
 	if __name__ == '__main__':
-		# imgpath = os.path.join(root, name)
 		save_imgpath = path
 		cli(img,save_imgpath)
-
-	# return StreamingResponse('app/newmask.png', media_type="image/png")
 	return FileResponse('app/newmask.png',media_type='image/png')
 
 if __name__ == '__main__':
