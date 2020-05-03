@@ -34,7 +34,7 @@ function analyze() {
        el("image-picked").src = blobUrl;
         }
     el("analyze-button").innerHTML = "Draw";
-    el('result-label').innerHTML = '<a href="download" download>download the image 📥</a>'
+    el('result-label').innerHTML = '<a>To download image 📥<br> <br>for pc/laptop users 🖥️: by right clicking the mouse on image and choose "Save image as..." <br><br> for mobile users 📱: long press on the image and choose "Download image" option</a>'
       
   };
 
