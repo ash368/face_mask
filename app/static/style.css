@@ -1,13 +1,20 @@
-
+/*
 body {
     background-color: #fff;
-    background-image: url('https://cdn.vox-cdn.com/thumbor/meZ_bfHkkPmZRcovuMwu_1G9Ev8=/0x0:4032x2268/1200x675/filters:focal(1694x812:2338x1456)/cdn.vox-cdn.com/uploads/chorus_image/image/63256252/Air_Masks_2.0.png');
+    background-image: url('https://live.staticflickr.com/65535/49849051812_f256ae9c92_b_d.jpg');
     background-repeat: no-repeat;
     background-attachment: fixed;  
     background-size: cover;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
+}*/
+
+body{
+    background: url('https://live.staticflickr.com/65535/49849051812_f256ae9c92_b_d.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    height: 100%;
+    overflow: hidden;
 }
 
 .no-display {
@@ -43,7 +50,7 @@ body {
 .upload-label {
     padding: 16px;
     font-size: 12px;
-  color: #f2ff00;
+  color: #000000;
   text-shadow: 5px 5px 15px white
     text-decoration-style: double;
 }
@@ -81,3 +88,18 @@ button.analyze-button {
 button:focus {
     outline: 10;
 }
+
+
+.footer-heart{text-align:center;font-family: open sans, sans-serif;}
+
+.footer-heart a{border-bottom: 1px solid #453886;color: #453886;padding-bottom: .25em; text-decoration: none;}
+
+.footer-heart a:hover{color:#2196f3; background-image: url("data:image/svg+xml;charset=utf8,%3Csvg id='squiggle-link' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:ev='http://www.w3.org/2001/xml-events' viewBox='0 0 20 4'%3E%3Cstyle type='text/css'%3E.squiggle{animation:shift .3s linear infinite;}@keyframes shift {from {transform:translateX(0);}to {transform:translateX(-20px);}}%3C/style%3E%3Cpath fill='none' stroke='%23453886' stroke-width='2' class='squiggle' d='M0,3.5 c 5,0,5,-3,10,-3 s 5,3,10,3 c 5,0,5,-3,10,-3 s 5,3,10,3'/%3E%3C/svg%3E");
+  background-position: bottom;
+  background-repeat: repeat-x;
+  background-size: 20%;
+  border-bottom: 0;
+  padding-bottom: .3em;
+  text-decoration: none;}
+
+.emoji{vertical-align: middle;}
