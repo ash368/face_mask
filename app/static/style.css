@@ -14,7 +14,7 @@ body{
     -o-background-size: cover;
     background-size: cover;
     height: 100%;
-    overflow: hidden;
+    overflow: auto;
 }
 
 .no-display {
@@ -37,6 +37,8 @@ body{
     color: #f5ff3b;
     text-shadow: 3px -1px 7px #C7CE2A;
     Background: FFFFFF;
+    -webkit-text-stroke: 1px  skyblue;
+
 }
 
 .content {
