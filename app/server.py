@@ -11,6 +11,7 @@ from io import BytesIO
 import face_recognition
 from pathlib import Path
 from PIL import Image, ImageFile
+from starlette.background import BackgroundTask
 from starlette.applications import Starlette
 from starlette.staticfiles import StaticFiles
 from starlette.responses import FileResponse
@@ -50,6 +51,10 @@ loop.close()
 @app.route('/')
 async def homepage(request):
 	html_file = path / 'view' / 'index.html'
+	if os.path.exists("app/newmask.png"):
+		os.remove("app/newmask.png")
+	else:
+		print ("The file does not exist")
 	return HTMLResponse(html_file.open().read())
 
 
@@ -192,9 +197,13 @@ async def analyze(request):
 	return FileResponse('app/newmask.png',media_type='image/png')
 
 
-@app.route("/download.png")
+@app.route("/download")
 async def  get_png(request):
-	return FileResponse("app/newmask.png")
+	# task = BackgroundTask(rem)
+	return FileResponse("app/newmask.png",media_type='image/png')
+
+
+
 
 if __name__ == '__main__':
 	if 'serve' in sys.argv:
