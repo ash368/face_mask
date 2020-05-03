@@ -1,5 +1,13 @@
+
 body {
     background-color: #fff;
+    background-image: url('https://cdn.vox-cdn.com/thumbor/meZ_bfHkkPmZRcovuMwu_1G9Ev8=/0x0:4032x2268/1200x675/filters:focal(1694x812:2338x1456)/cdn.vox-cdn.com/uploads/chorus_image/image/63256252/Air_Masks_2.0.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed;  
+    background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
 }
 
 .no-display {
@@ -19,7 +27,9 @@ body {
     font-size: 50px;
     margin-top: 1em;
     margin-bottom: 1em;
-    color: #262626;
+    color: #f5ff3b;
+    text-shadow: 3px -1px 7px #C7CE2A;
+    Background: FFFFFF;
 }
 
 .content {
@@ -31,8 +41,11 @@ body {
 }
 
 .upload-label {
-    padding: 10px;
+    padding: 16px;
     font-size: 12px;
+  color: #f2ff00;
+  text-shadow: 5px 5px 15px white
+    text-decoration-style: double;
 }
 
 .result-label {
@@ -44,11 +57,12 @@ body {
 button.choose-file-button {
     width: 200px;
     height: 40px;
-    border-radius: 2px;
-    background-color: #ffffff;
-    border: solid 1px #7052CB;
-    font-size: 13px;
-    color: #7052CB;
+    border-radius: 12px;
+    background-color: #f6f7c3;
+    border: solid 3.5px #8b1be0;
+    font-size: 15px;
+    color: #000000;
+  
 }
 
 button.analyze-button {
@@ -61,6 +75,9 @@ button.analyze-button {
     color: #ffffff;
 }
 
+
+
+
 button:focus {
-    outline: 0;
+    outline: 10;
 }
