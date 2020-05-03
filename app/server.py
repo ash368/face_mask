@@ -191,6 +191,11 @@ async def analyze(request):
 		cli(img,save_imgpath)
 	return FileResponse('app/newmask.png',media_type='image/png')
 
+
+@app.route("/download.png")
+async def  get_png(request):
+	return FileResponse("app/newmask.png")
+
 if __name__ == '__main__':
 	if 'serve' in sys.argv:
 		uvicorn.run(app=app, host='0.0.0.0', port=5000, log_level="info")

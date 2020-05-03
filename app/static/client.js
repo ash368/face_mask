@@ -32,12 +32,15 @@ function analyze() {
     if (this.readyState === 4) {
        const blobUrl = URL.createObjectURL(e.target.response);
        el("image-picked").src = blobUrl;
-    }
+        }
     el("analyze-button").innerHTML = "Draw";
-    el('result-label').innerHTML = '<a href="file:///app/newmask.png" download>download the image</a>'
+    el('result-label').innerHTML = '<a href="download.png" download>download the image 📥</a>'
+      
   };
 
   var fileData = new FormData();
   fileData.append("file", uploadFiles[0]);
   xhr.send(fileData);
 }
+
+
