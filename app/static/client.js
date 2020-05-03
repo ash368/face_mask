@@ -34,6 +34,7 @@ function analyze() {
        el("image-picked").src = blobUrl;
     }
     el("analyze-button").innerHTML = "Draw";
+    el('result-label').innerHTML = '<a href="file:///app/newmask.png" download>download the image</a>'
   };
 
   var fileData = new FormData();
