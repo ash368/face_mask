@@ -10,7 +10,7 @@ import numpy as np
 from io import BytesIO
 import face_recognition
 from pathlib import Path
-from PIL import Image, ImageFile
+from PIL import Image, ImageFile, ImageFilter, ImageEnhance
 from starlette.background import BackgroundTask
 from starlette.applications import Starlette
 from starlette.staticfiles import StaticFiles
@@ -58,18 +58,30 @@ async def homepage(request):
 	return HTMLResponse(html_file.open().read())
 
 
-@app.route('/analyze', methods=['POST'])
+@app.route('/analyze', methods=['POST','GET'])
 async def analyze(request):
 	
 	img_data = await request.form()
+	# print (img_data)
+	# print(img_data['emotion'])
 	img_bytes = await (img_data['file'].read())
 	img = Image.open(BytesIO(img_bytes))
+
+	# mask_data = request.form()
+	# mask_bytes = await (mask_data['emotion'])
+	# print (mask_data.items)
+	# mask_bytes = await (mask_data['file'].read())
+	# mask_img = Image.open(
+
 	# Provide the target width and height of the image
 	(width, height) = (img.width , img.height )
-	if width <=1000 and height <= 1200:
+	if height < 1200:
 		img = img
 	else:
 		img= img.resize((width//3, height//3))
+
+	print (img.width)
+	print(img.height)
 
 	if os.path.exists("app/newmask.png"):
 		os.remove("app/newmask.png")
@@ -108,6 +120,7 @@ async def analyze(request):
 				for facial_feature in self.KEY_FACIAL_FEATURES:
 					if facial_feature not in face_landmark:
 						skip = True
+						print ("no")
 						break
 				if skip:
 					continue
@@ -115,8 +128,42 @@ async def analyze(request):
 				# mask face
 				found_face = True
 				self._mask_face(face_landmark)
-				new_face_path = path/'newmask.png'
+				# self.face_image=self.face_image.filter(ImageFilter.SMOOTH)
+				new_face_path = path/'newmask.png' 
 				self._face_img.save(new_face_path)
+
+				#filter operation(1)
+				def contrast(source_name, result_name, coefficient):
+					source = Image.open(source_name)
+					result = Image.new('RGB', source.size)
+
+					avg = 0
+					for x in range(source.size[0]):
+						for y in range(source.size[1]):
+							r, g, b = source.getpixel((x, y))
+							avg += r * 0.299 + g * 0.587 + b * 0.114
+					avg /= source.size[0] * source.size[1]
+
+					palette = []
+					for i in range(256):
+						temp = int(avg + coefficient * (i - avg))
+						if temp < 0:
+							temp = 0
+						elif temp > 255:
+							temp = 255
+						palette.append(temp)
+
+					for x in range(source.size[0]):
+						for y in range(source.size[1]):
+							r, g, b = source.getpixel((x, y))
+							result.putpixel((x, y), (palette[r], palette[g], palette[b]))
+
+					result.save(path/'newmask.png', "PNG")
+
+				contrast(path/'newmask.png',path/'newmask.png',1.5)
+
+				# im.save(path/'newmask.png',"PNG")
+
 				# self._save()
 
 		def _mask_face(self, face_landmark: dict):
@@ -197,8 +244,8 @@ async def analyze(request):
 	return FileResponse('app/newmask.png',media_type='image/png')
 
 
-@app.route("/download")
-async def  get_png(request):
+@app.route("/download",methods=['POST','GET'])
+async def  download(request):
 	# task = BackgroundTask(rem)
 	return FileResponse("app/newmask.png",media_type='image/png')
 

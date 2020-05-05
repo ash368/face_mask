@@ -26,7 +26,7 @@ function analyze() {
   xhr.onerror = function() {
     alert(xhr.responseText);
   };
-  xhr.responseType="blob"
+  xhr.responseType="blob";
 
   xhr.onload = function(e) {
     if (this.readyState === 4) {
@@ -34,7 +34,7 @@ function analyze() {
        el("image-picked").src = blobUrl;
         }
     el("analyze-button").innerHTML = "Draw";
-    el('result-label').innerHTML = '<a>To download image 📥<br> <br>for pc/laptop users 🖥️: by right clicking the mouse on image and choose "Save image as..." <br><br> for mobile users 📱: long press on the image and choose "Download image" option</a>'
+    // el('result-label').innerHTML = '<a>To download image 📥<br> <br>for pc/laptop users 🖥️: by right clicking the mouse on image and choose "Save image as..." <br><br> for mobile users 📱: long press on the image and choose "Download image" option</a>'
       
   };
 
@@ -43,4 +43,33 @@ function analyze() {
   xhr.send(fileData);
 }
 
+function down1() {
+  var xhr = new XMLHttpRequest();
+  var loc = window.location;
+  xhr.open("GET", `${loc.protocol}//${loc.hostname}:${loc.port}/download`
+    ,true);
+  xhr.responseType="blob";
+  xhr.onload = function(e) {
+    if (this.readyState === 4) {
+      const blobUrl = window.URL.createObjectURL(e.target.response);
+      const link = document.createElement('a');
+      link.hidden=true;
+      link.download='mask.png'
+      link.href = blobUrl;
+      link.text = 'downloading....';
+      document.body.appendChild(link);
+     
 
+      link.click()
+      setTimeout(() => {
+    // For Firefox it is necessary to delay revoking the ObjectURL
+      window.URL.revokeObjectURL(blobURL);
+    }, 10);
+
+      URL.revokeObjectURL(blobUrl);
+      link.remove(); 
+    }
+  };
+  var fileData = new FormData();
+  xhr.send(fileData);
+}
