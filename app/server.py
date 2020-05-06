@@ -10,6 +10,7 @@ import numpy as np
 from io import BytesIO
 import face_recognition
 from pathlib import Path
+from PIL.ExifTags import TAGS
 from PIL import Image, ImageFile, ImageFilter, ImageEnhance
 from starlette.background import BackgroundTask
 from starlette.applications import Starlette
@@ -66,22 +67,47 @@ async def analyze(request):
 	# print(img_data['emotion'])
 	img_bytes = await (img_data['file'].read())
 	img = Image.open(BytesIO(img_bytes))
-
-	# mask_data = request.form()
-	# mask_bytes = await (mask_data['emotion'])
-	# print (mask_data.items)
-	# mask_bytes = await (mask_data['file'].read())
-	# mask_img = Image.open(
-
-	# Provide the target width and height of the image
-	(width, height) = (img.width , img.height )
-	if height < 1200:
-		img = img
+	img_exif = img.getexif()
+	if img_exif:
+		for key,value in img._getexif().items():
+			if TAGS.get(key) == 'Orientation':
+				orientation = value
+		if orientation == 1:
+			img 
+		if orientation == 3:
+			img = img.rotate(180)
+		if orientation == 6:
+			img = img.rotate(270)
+		if orientation == 8:
+			img= img.rotate(90)
 	else:
-		img= img.resize((width//3, height//3))
+		print("image has no ExifTags")
 
-	print (img.width)
-	print(img.height)
+	max_size=512
+
+	if img.height > max_size or img.width > max_size:
+		# if width > height:
+		if img.width > img.height:
+			desired_width = max_size
+			desired_height = img.height / (img.width/max_size)
+				
+		# if height > width:
+		elif img.height > img.width:
+			desired_height = max_size
+			desired_width = img.width / (img.height/max_size)
+				
+		else:
+			desired_height = max_size
+			desired_width = max_size
+				
+		# convert back to integer
+		desired_height = int(desired_height)
+		desired_width = int(desired_width)
+				
+		img = img.resize((desired_width, desired_height))
+
+	else:
+		print ('img reize not required')
 
 	if os.path.exists("app/newmask.png"):
 		os.remove("app/newmask.png")

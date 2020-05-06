@@ -18,7 +18,7 @@ function analyze() {
   var uploadFiles = el("file-input").files;
   if (uploadFiles.length !== 1) alert("Please select an image to style!");
 
-  el("analyze-button").innerHTML = "Drawing...";
+  el("analyze-button").innerHTML = "Masking..";
   var xhr = new XMLHttpRequest();
   var loc = window.location;
   xhr.open("POST", `${loc.protocol}//${loc.hostname}:${loc.port}/analyze`,
@@ -33,13 +33,14 @@ function analyze() {
        const blobUrl = URL.createObjectURL(e.target.response);
        el("image-picked").src = blobUrl;
         }
-    el("analyze-button").innerHTML = "Draw";
+    el("analyze-button").innerHTML = "Mask-photo";
     // el('result-label').innerHTML = '<a>To download image 📥<br> <br>for pc/laptop users 🖥️: by right clicking the mouse on image and choose "Save image as..." <br><br> for mobile users 📱: long press on the image and choose "Download image" option</a>'
       
   };
 
   var fileData = new FormData();
   fileData.append("file", uploadFiles[0]);
+  // el("analyze-button").innerHTML = "Masking..";
   xhr.send(fileData);
 }
 

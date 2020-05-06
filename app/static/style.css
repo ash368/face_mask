@@ -7,7 +7,7 @@ body {
     background-size: cover;
 }*/
 
-body{
+/*body{
     background: url('https://live.staticflickr.com/65535/49849051812_f256ae9c92_b_d.jpg') no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -15,6 +15,11 @@ body{
     background-size: cover;
     height: 100%;
     overflow: auto;
+}*/
+body{
+  background: #41295a;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #2F0743, #41295a);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #2F0743, #41295a); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 .no-display {
@@ -52,7 +57,7 @@ body{
 .upload-label {
     padding: 16px;
     font-size: 12px;
-  color: #000000;
+  color: white;
   text-shadow: 5px 5px 15px white
     text-decoration-style: double;
 }
@@ -104,9 +109,9 @@ button:focus {
 
 .footer-heart{text-align:center;font-family: open sans, sans-serif;}
 
-.footer-heart a{border-bottom: 1px solid #453886;color: #453886;padding-bottom: .25em; text-decoration: none;}
-
-.footer-heart a:hover{color:#2196f3; background-image: url("data:image/svg+xml;charset=utf8,%3Csvg id='squiggle-link' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:ev='http://www.w3.org/2001/xml-events' viewBox='0 0 20 4'%3E%3Cstyle type='text/css'%3E.squiggle{animation:shift .3s linear infinite;}@keyframes shift {from {transform:translateX(0);}to {transform:translateX(-20px);}}%3C/style%3E%3Cpath fill='none' stroke='%23453886' stroke-width='2' class='squiggle' d='M0,3.5 c 5,0,5,-3,10,-3 s 5,3,10,3 c 5,0,5,-3,10,-3 s 5,3,10,3'/%3E%3C/svg%3E");
+.footer-heart a{solid #453886;color:white;padding-bottom: .25em; text-decoration: none;}
+.footer-heart a.made_by{border-bottom: 1px solid #453886;color:white;padding-bottom: .25em; text-decoration: none;}
+.footer-heart a.made_by:hover{color:#2196f3; background-image: url("data:image/svg+xml;charset=utf8,%3Csvg id='squiggle-link' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:ev='http://www.w3.org/2001/xml-events' viewBox='0 0 20 4'%3E%3Cstyle type='text/css'%3E.squiggle{animation:shift .3s linear infinite;}@keyframes shift {from {transform:translateX(0);}to {transform:translateX(-20px);}}%3C/style%3E%3Cpath fill='none' stroke='%23453886' stroke-width='2' class='squiggle' d='M0,3.5 c 5,0,5,-3,10,-3 s 5,3,10,3 c 5,0,5,-3,10,-3 s 5,3,10,3'/%3E%3C/svg%3E");
   background-position: bottom;
   background-repeat: repeat-x;
   background-size: 20%;
@@ -121,24 +126,7 @@ button:focus {
   left: -9999px;
 }
 
-input[type=radio]:checked + label>img {
-  border: 1px solid #fff;
-  box-shadow: 0 0 3px 3px #090;
-}
 
-/* Stuff after this is only to make things more pretty */
-input[type=radio] + label>img {
-  border: 1px dashed #444;
-  width: 70px;
-  height: 70px;
-  transition: 500ms all;
-}
-
-input[type=radio]:checked + label>img {
-  transform: 
-    rotateZ(-10deg) 
-    rotateX(10deg);
-}
 
 /*
  | //lea.verou.me/css3patterns
