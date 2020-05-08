@@ -1,15 +1,9 @@
-# Starter for deploying [fast.ai](https://www.fast.ai) models on [Render](https://render.com)
+## Web app done using starlette
 
-This repo can be used as a starting point to deploy [fast.ai](https://github.com/fastai/fastai) models on Render.
+### It does nothing but adds mask to your face 😷
 
-The sample app described here is up at https://fastai-v3.onrender.com. Test it out with bear images!
+<p align="center"><img src="https://live.staticflickr.com/65535/49869667777_71a3c24705_z_d.jpg"  width="200"/></p>
 
-You can test your changes locally by installing Docker and using the following command:
+> install requirements and run the app using `python app/server.py serve`
 
-```
-docker build -t fastai-v3 . && docker run --rm -it -p 5000:5000 fastai-v3
-```
-
-The guide for production deployment to Render is at https://course.fast.ai/deployment_render.html.
-
-Please use [Render's fast.ai forum thread](https://forums.fast.ai/t/deployment-platform-render/33953) for questions and support.
+thanks to [dlib](http://dlib.net/) and [face-recognition](https://github.com/ageitgey/face_recognition) projects
